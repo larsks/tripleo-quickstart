@@ -44,8 +44,12 @@
   file:
     name: "{{ working_dir }}"
     state: directory
+  become: true
+  become_user: "{{non_root_user}}"
 
 - name: write instackenv script
   template:
     src: instackenv.json.j2
     dest: "{{ working_dir }}/instackenv.json"
+  become: true
+  become_user: "{{non_root_user}}"

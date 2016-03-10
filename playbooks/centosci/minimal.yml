@@ -16,7 +16,8 @@
   vars_files:
     - centosci_minimal_nodes.yml
   roles:
-    # Use teardown role in minimal job just to gate it works on fresh host
+    - environment/teardown
+    - environment/setup
     - libvirt/teardown
     - libvirt/setup
 

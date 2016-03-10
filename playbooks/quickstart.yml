@@ -1,14 +1,5 @@
 ---
-- name: Add virthost to inventory
-  hosts: localhost
-  gather_facts: no
-  vars:
-    # This allows running ansible in a virtualenv,
-    # while using python from the base install
-    ansible_python_interpreter: "/usr/bin/python"
-  roles:
-    - provision/manual
-    - rebuild-inventory
+- include: centosci/provision.yml
 
 - name:  Setup undercloud and baremetal vms and networks in libvirt
   hosts: virthost
@@ -31,5 +22,4 @@
   hosts: undercloud
   gather_facts: no
   roles:
-    - tripleo/undercloud
-    - tripleo/overcloud
+    - tripleo

@@ -7,4 +7,10 @@ set -eux
 export {{ var }}
 {% endfor %}
 
+sudo crudini --set \
+    /etc/ironic/ironic.conf \
+    ssh \
+    libvirt_uri \
+    '{{ libvirt_uri }}'
+
 openstack undercloud install

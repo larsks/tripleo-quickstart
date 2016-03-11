@@ -1,0 +1,31 @@
+digraph {
+	graph [pad="0.5", ranksep="0.25", nodesep="2"];
+
+	node [style="filled", color="#90EE90"];
+	"provision/local";
+	"provision/remote" [color="#f08080"];
+	"environment/setup" [color="#f08080"];
+	"libvirt/setup";
+	"tripleo/undercloud";
+	"tripleo/overcloud";
+	"libvirt/teardown";
+	"environment/teardown" [color="#f08080"];
+	"provision/teardown" [color="#f08080"];
+
+	"provision/local" -> "provision/remote";
+	"provision/remote" -> "environment/setup";
+	"environment/setup" -> "libvirt/setup";
+
+	subgraph cluster_unprivileged {
+		style = filled;
+		color = lightblue;
+		label = "Unprivileged operations";
+		"libvirt/setup" -> "tripleo/undercloud";
+		"tripleo/undercloud" -> "tripleo/overcloud";
+		"tripleo/overcloud" -> "libvirt/teardown";
+		"libvirt/teardown" -> "libvirt/setup" [label="repeat as necessary"];
+	}
+
+	"libvirt/teardown" -> "environment/teardown";
+	"environment/teardown" -> "provision/teardown";
+}

@@ -24,5 +24,6 @@ export ANSIBLE_SSH_CONTROL_PATH=$socketdir/%%h-%%r
 bash quickstart.sh \
     --working-dir $WORKSPACE/ \
     --no-clone \
+    -e non_root_user=stack0 \
     --release ${CI_ENV:+$CI_ENV/}$RELEASE${REL_TYPE:+-$REL_TYPE} \
     $VIRTHOST
